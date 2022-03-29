@@ -13,9 +13,12 @@ namespace LifeGame
     public partial class Form1 : Form
     {
         int N = 5;
+        LifeGamecs life;
         public Form1()
         {
             InitializeComponent();
+            CreateGrid(N);
+            life = new LifeGamecs();
         }
         void CreateGrid(int n)
         {
@@ -52,6 +55,19 @@ namespace LifeGame
 
         }
 
-        
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                timer1.Enabled = true;
+            else
+                timer1.Enabled = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            life.GridToArea(dataGridView1, N);
+            life.NextDay();
+            life.AreaToGrid(dataGridView1);
+        }
     }
 }

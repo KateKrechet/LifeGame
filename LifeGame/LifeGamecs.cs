@@ -20,7 +20,7 @@ namespace LifeGame
          }*/
         public void GridToArea(DataGridView grid, int n)//из формы будем отправлять таблицу
         {//смотря на цвет, ставим 0 или 1
-            N = N;
+            N = n;
             Area = new int[n, n];
 
             for (int col = 0; col < n; col++)
@@ -53,9 +53,10 @@ namespace LifeGame
             int count;
             for (int col = 0; col < N; col++)
             {
-                count = 0;
+                
                 for (int row = 0; row < N; row++)
                 {
+                    count = 0;
                     if (row < N - 1) count += Area[col, row + 1];
                     if (row >0) count += Area[col, row - 1];
 
@@ -63,8 +64,8 @@ namespace LifeGame
                     if (col < N - 1 && row > 0) count += Area[col + 1, row - 1];
                     if (col < N - 1) count += Area[col + 1, row];
 
-                    if (col >0 && row > N-1) count += Area[col - 1, row + 1];
-                    if (col >0 - 1 && row >0) count += Area[col - 1, row - 1];
+                    if (col >0 && row < N-1) count += Area[col - 1, row + 1];
+                    if (col >0 && row >0) count += Area[col - 1, row - 1];
                     if (col >0) count += Area[col - 1, row];
 
                     if (Area[col, row] == 0 && count == 3)
@@ -78,6 +79,7 @@ namespace LifeGame
 
                 }
             }
+            Area = buffer;//следующий шаг клетки
         }
     }
 }
